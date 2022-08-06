@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "zeekerscrapers"
+version = "0.1.0"
+description = ""
+authors = ["houfu <houfu@outlook.stg>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+Scrapy = "^2.6.2"
+requests = "^2.28.1"
+beautifulsoup4 = "^4.11.1"
+sqlmodel = "^0.0.6"
+html5lib = "^1.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+pytest-sugar = "^0.9.5"
+pytest-cov = "^3.0.0"
+pytest-recording = "^0.12.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
