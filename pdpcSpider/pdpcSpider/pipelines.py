@@ -44,4 +44,4 @@ class PDPCDecisionDownloadFilePipeline(scrapy.pipelines.files.FilesPipeline):
 
     def file_path(self, request, response=None, info=None, *, item=None):
         adapter = ItemAdapter(item)
-        return f"full/{adapter['title']}.pdf" if item else None
+        return f"full/{adapter['published_date']} {adapter['title']}.pdf" if item else None

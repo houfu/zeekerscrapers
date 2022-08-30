@@ -24,3 +24,19 @@ def test_CommissionDecisionSummaryPagePipeline_process_item():
                                      "Decision---Crawfort-Pte-Ltd---070622.ashx?la=en"
     assert test_item.file_urls == ["https://www.pdpc.gov.sg/-/media/Files/PDPC/PDF-Files/Commissions-Decisions/"
                                    "Decision---Crawfort-Pte-Ltd---070622.ashx?la=en"]
+
+
+@pytest.mark.default_cassette("test_CommissionDecisionSummaryPagePipeline_process_item.yaml")
+@pytest.mark.vcr
+def test_file_path():
+    test_summary_page = "https://www.pdpc.gov.sg/all-commissions-decisions/" \
+                        "2022/07/breach-of-the-protection-obligation-by-crawfort"
+    test_item = CommissionDecisionItem(decision=[DecisionType.FINANCIAL_PENALTY],
+                                       summary_url=test_summary_page,
+                                       title="Breach of the Protection Obligation by Crawfort",
+                                       nature="", published_date=datetime.date(2020, 10, 2))
+    from pdpcSpider.pipelines import PDPCDecisionDownloadFilePipeline
+    pipeline = PDPCDecisionDownloadFilePipeline("dummy")
+    from scrapy.http import TextResponse
+    assert pipeline.file_path(TextResponse(""),
+                              item=test_item) == 'full/2020-10-02 Breach of the Protection Obligation by Crawfort.pdf'

@@ -13,6 +13,10 @@ class DPObligations(Enum):
     RETENTION_LIMITATION = "Retention Limitation"
     TRANSFER_LIMITATION = "Transfer Limitation"
 
+    def __repr__(self):
+        """Override default behaviour to just output the value"""
+        return self.value
+
 
 class DecisionType(Enum):
     ADVISORY_NOTICE = "Advisory Notice"
@@ -21,6 +25,9 @@ class DecisionType(Enum):
     NOT_IN_BREACH = "Not in Breach"
     WARNING = "Warning"
 
+    def __repr__(self):
+        """Override default behaviour to just output the value"""
+        return self.value
 
 @dataclass
 class CommissionDecisionItem:
