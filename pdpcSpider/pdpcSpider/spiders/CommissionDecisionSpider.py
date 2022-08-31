@@ -56,7 +56,7 @@ class CommissionDecisionSpider(scrapy.Spider):
             yield CommissionDecisionItem(
                 title=item["title"],
                 summary_url=f"https://www.pdpc.gov.sg{item['url']}",
-                published_date=datetime.strptime(item["date"], '%d %b %Y'),
+                published_date=datetime.strptime(item["date"], '%d %b %Y').date(),
                 nature=nature,
                 decision=decision
             )
