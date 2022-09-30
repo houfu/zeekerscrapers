@@ -1,6 +1,5 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
-from typing import Union
 
 from common.ZeekerItem import ZeekerItem
 
@@ -34,8 +33,8 @@ class DecisionType(Enum):
 @dataclass
 class CommissionDecisionItem(ZeekerItem):
     summary_url: str = ""
-    nature: Union[list[DPObligations], str] = ""
-    decision: Union[list[DecisionType], str] = ""
+    nature: list[DPObligations] = field(default_factory=list)
+    decision: list[DecisionType] = field(default_factory=list)
     respondent: str = ""
     decision_url: str = ""
     summary: str = ""
