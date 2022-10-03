@@ -9,8 +9,9 @@ import re
 
 import bs4
 import requests
-import scrapy.pipelines.files
 from itemadapter import ItemAdapter
+
+from common.ZeekerDownloadFilePipeline import ZeekerDownloadFilePipeline
 
 
 class CommissionDecisionSummaryPagePipeline:
@@ -40,7 +41,7 @@ class CommissionDecisionSummaryPagePipeline:
         return item
 
 
-class PDPCDecisionDownloadFilePipeline(scrapy.pipelines.files.FilesPipeline):
+class PDPCDecisionDownloadFilePipeline(ZeekerDownloadFilePipeline):
 
     def file_path(self, request, response=None, info=None, *, item=None):
         adapter = ItemAdapter(item)

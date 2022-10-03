@@ -4,7 +4,7 @@ A collection of scrapy/Python spiders for web scraping legal materials in Singap
 
 ## What's Available
 
-| Description    | Project    | Spider                  | Status | Special Notes                                               | Related Website                                   |
+| Description    | Project    | Spider                  | Status | Features                                                    | Related Website                                   |
 |----------------|------------|-------------------------|--------|-------------------------------------------------------------|---------------------------------------------------|
 | PDPC Decisions | pdpcSpider | PDPCCommissionDecisions | Works  | List of all decisions in JSON <br/> Downloads PDF Decisions | https://www.pdpc.gov.sg/All-Commissions-Decisions |
 
@@ -46,6 +46,11 @@ please [be responsible](https://docs.scrapy.org/en/latest/topics/autothrottle.ht
 ## License
 
 MIT License, Copyright 2022 Ang Hou Fu
+
+## Testing
+
+This project runs on `pytest`. 
+You can run all the tests written for all scrapers by running the `pytest` command in the root directory.
 
 ## Contributing
 

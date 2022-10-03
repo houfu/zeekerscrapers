@@ -1,7 +1,8 @@
-import datetime
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from enum import Enum
 from typing import Union
+
+from common.ZeekerItem import ZeekerItem
 
 
 class DPObligations(Enum):
@@ -29,15 +30,12 @@ class DecisionType(Enum):
         """Override default behaviour to just output the value"""
         return self.value
 
+
 @dataclass
-class CommissionDecisionItem:
-    title: str
-    summary_url: str
-    nature: Union[list[DPObligations], str]
-    decision: Union[list[DecisionType], str]
-    published_date: datetime.date
+class CommissionDecisionItem(ZeekerItem):
+    summary_url: str = ""
+    nature: Union[list[DPObligations], str] = ""
+    decision: Union[list[DecisionType], str] = ""
     respondent: str = ""
     decision_url: str = ""
     summary: str = ""
-    file_urls: list[str] = field(default_factory=list)
-    files: list[str] = field(default_factory=list)
