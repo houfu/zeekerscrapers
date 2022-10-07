@@ -2,7 +2,6 @@ import datetime
 
 import pytest
 
-from app.core.config import settings
 from pdpcSpider.items import CommissionDecisionItem, DecisionType, DPObligations
 
 
@@ -32,7 +31,7 @@ def test_CommissionDecisionSummaryPagePipeline_process_item():
                         "2022/07/breach-of-the-protection-obligation-by-crawfort"
     test_item = CommissionDecisionItem(decision=[DecisionType.FINANCIAL_PENALTY],
                                        summary_url=test_summary_page,
-                                       title="", nature=[], published_date=datetime.date(2020, 10, 2))
+                                       title="", nature=[], published_date="2 October 2020")
     test_item = pipeline.process_item(test_item, None)
     assert test_item.respondent == "Crawfort"
     assert test_item.summary == "Directions were issued to Crawfort to conduct a security audit of its technical and " \
@@ -53,12 +52,12 @@ def test_file_path():
     test_item = CommissionDecisionItem(decision=[DecisionType.FINANCIAL_PENALTY],
                                        summary_url=test_summary_page,
                                        title="Breach of the Protection Obligation by Crawfort",
-                                       nature=[], published_date=datetime.date(2020, 10, 2))
+                                       nature=[], published_date="2 October 2020")
     from pdpcSpider.pipelines import PDPCDecisionDownloadFilePipeline
     pipeline = PDPCDecisionDownloadFilePipeline("dummy")
     from scrapy.http import TextResponse
     assert pipeline.file_path(TextResponse(""),
-                              item=test_item) == 'full/2020-10-02 Breach of the Protection Obligation by Crawfort.pdf'
+                              item=test_item) == 'full/2 October 2020 Breach of the Protection Obligation by Crawfort.pdf'
 
 
 def test_PDPCDecisionAddToSQL_process_item(decision):
@@ -67,7 +66,7 @@ def test_PDPCDecisionAddToSQL_process_item(decision):
     pipeline.open_spider(None)
     pipeline.process_item(decision, None)
     from sqlmodel import Session
-    from app.db.session import engine
+    from common.init_db import engine
     with Session(engine) as session:
         from sqlmodel import select
         from pdpcSpider.models import CommissionDecisionModel

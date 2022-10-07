@@ -53,13 +53,13 @@ class PDPCDecisionDownloadFilePipeline(ZeekerDownloadFilePipeline):
 class PDPCDecisionAddToSQL:
 
     def __init__(self):
-        self.engine = None
+        from common.init_db import engine
+        self.engine = engine
 
     def open_spider(self, spider):
-        from pdpcSpider.models import CommissionDecisionModel, DecisionTypeModel, DecisionTypeLink, DPObligationsModel, \
-            DPObligationsLink, create_DPObligations, create_DecisionType
-        from app.db.session import engine, create_db_and_tables
-        self.engine = engine
+        from pdpcSpider.models import CommissionDecisionModel, DecisionTypeModel, DecisionTypeLink, \
+            DPObligationsModel, DPObligationsLink, create_DPObligations, create_DecisionType
+        from common.init_db import create_db_and_tables
         create_db_and_tables()
         create_DPObligations()
         create_DecisionType()

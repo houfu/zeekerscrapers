@@ -2,7 +2,7 @@ from typing import Optional, List
 
 from sqlmodel import SQLModel, Field, Session, Relationship
 
-from app.db.session import engine
+from common.init_db import engine
 from pdpcSpider.items import CommissionDecisionItem, DPObligations, DecisionType
 
 
