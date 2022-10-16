@@ -48,7 +48,6 @@ class CommissionDecisionSpider(scrapy.Spider):
         response_json = response.json()
         for item in response_json["items"]:
             self.logger.info(f'See item \"{item["title"]}\"')
-            from datetime import datetime
             nature = [DPObligations(nature.strip()) for nature in item["nature"].split(',')] if item[
                 "nature"] else "None"
             decision = [DecisionType(decision.strip()) for decision in item["decision"].split(',')] if item[
@@ -56,7 +55,7 @@ class CommissionDecisionSpider(scrapy.Spider):
             yield CommissionDecisionItem(
                 title=item["title"],
                 summary_url=f"https://www.pdpc.gov.sg{item['url']}",
-                published_date=datetime.strptime(item["date"], '%d %b %Y').date(),
+                published_date=item["date"],
                 nature=nature,
                 decision=decision
             )

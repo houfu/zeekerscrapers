@@ -24,7 +24,7 @@ def test_parse():
     results = spider.parse(TextResponse(url="", body=response.content))
     test = next(results)
     assert test.title == "Breach of the Protection Obligation by Crawfort"
-    assert test.published_date == datetime.date(2022, 7, 14)
+    assert test.published_date == "14 Jul 2022"
     assert test.summary_url == "https://www.pdpc.gov.sg/all-commissions-decisions/2022/07/" \
                                "breach-of-the-protection-obligation-by-crawfort"
     from pdpcSpider.items import DPObligations

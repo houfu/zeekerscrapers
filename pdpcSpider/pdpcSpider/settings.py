@@ -64,6 +64,7 @@ ROBOTSTXT_OBEY = True
 ITEM_PIPELINES = {
     'pdpcSpider.pipelines.CommissionDecisionSummaryPagePipeline': 300,
     'pdpcSpider.pipelines.PDPCDecisionDownloadFilePipeline': 800,
+    'pdpcSpider.pipelines.PDPCDecisionAddToSQL':1000
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
