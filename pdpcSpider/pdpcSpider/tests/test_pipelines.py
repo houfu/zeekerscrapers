@@ -61,8 +61,8 @@ def test_file_path():
 
 
 def test_PDPCDecisionAddToSQL_process_item(decision):
-    from pdpcSpider.pipelines import PDPCDecisionAddToSQL
-    pipeline = PDPCDecisionAddToSQL()
+    from pdpcSpider.pipelines import PDPCDecisionAddToSQLPipeline
+    pipeline = PDPCDecisionAddToSQLPipeline()
     pipeline.open_spider(None)
     pipeline.process_item(decision, None)
     from sqlmodel import Session
@@ -87,8 +87,8 @@ def test_PDPCDecisionAddToSQL_process_item(decision):
 
 def test_PDPCDecisionDropDuplicates_process_item(decision):
     # First Add the Decision to database
-    from pdpcSpider.pipelines import PDPCDecisionAddToSQL, PDPCDecisionDropDuplicatesPipeline
-    sql_pipeline = PDPCDecisionAddToSQL()
+    from pdpcSpider.pipelines import PDPCDecisionAddToSQLPipeline, PDPCDecisionDropDuplicatesPipeline
+    sql_pipeline = PDPCDecisionAddToSQLPipeline()
     sql_pipeline.open_spider(None)
     sql_pipeline.process_item(decision, None)
     # Run the same decision through pipeline, check for drop

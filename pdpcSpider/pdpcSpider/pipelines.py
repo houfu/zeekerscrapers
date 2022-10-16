@@ -50,7 +50,7 @@ class PDPCDecisionDownloadFilePipeline(ZeekerDownloadFilePipeline):
         return f"full/{adapter['published_date']} {adapter['title']}.pdf" if item else None
 
 
-class PDPCDecisionAddToSQL:
+class PDPCDecisionAddToSQLPipeline:
 
     def __init__(self):
         from common.init_db import engine
