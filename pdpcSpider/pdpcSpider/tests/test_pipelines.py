@@ -83,3 +83,17 @@ def test_PDPCDecisionAddToSQL_process_item(decision):
         assert test.respondent == decision.respondent
         assert test.decision_url == decision.decision_url
         assert test.summary == decision.summary
+
+
+def test_PDPCDecisionDropDuplicates_process_item(decision):
+    # First Add the Decision to database
+    from pdpcSpider.pipelines import PDPCDecisionAddToSQL, PDPCDecisionDropDuplicatesPipeline
+    sql_pipeline = PDPCDecisionAddToSQL()
+    sql_pipeline.open_spider(None)
+    sql_pipeline.process_item(decision, None)
+    # Run the same decision through pipeline, check for drop
+    pipeline = PDPCDecisionDropDuplicatesPipeline()
+    pipeline.open_spider(None)
+    from scrapy.exceptions import DropItem
+    with pytest.raises(DropItem):
+        pipeline.process_item(decision, None)

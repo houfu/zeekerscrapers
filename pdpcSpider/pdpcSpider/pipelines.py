@@ -80,3 +80,24 @@ class PDPCDecisionAddToSQL:
             )
             session.add(decision)
             session.commit()
+
+
+class PDPCDecisionDropDuplicatesPipeline:
+
+    def __init__(self):
+        from common.init_db import engine
+        self.engine = engine
+        self.lookup_table = []
+
+    def open_spider(self, spider):
+        from pdpcSpider.models import CommissionDecisionModel
+        with Session(self.engine) as session:
+            from sqlmodel import select
+            results = session.exec(select(CommissionDecisionModel))
+            for decision in results:
+                self.lookup_table.append(decision.summary_url)
+
+    def process_item(self, item: CommissionDecisionItem, spider):
+        if item.summary_url in self.lookup_table:
+            from scrapy.exceptions import DropItem
+            raise DropItem(f"Decision {item.title} is already in database. Skip.")
