@@ -1,4 +1,7 @@
+from scrapy import Selector
 from scrapy.spiders import XMLFeedSpider
+
+from stateCourtSpider.items import StateCourtDecisionItem
 
 
 class LatestJudgmentsStateCourtSpider(XMLFeedSpider):
@@ -11,14 +14,16 @@ class LatestJudgmentsStateCourtSpider(XMLFeedSpider):
         "https://www.lawnet.sg/lawnet/web/lawnet/free-resources?p_p_id=freeresources_WAR_lawnet3baseportlet"
         "&p_p_lifecycle=2&p_p_state=normal&p_p_mode=view&p_p_resource_id=subordinateRSS&p_p_cacheability"
         "=cacheLevelPage&p_p_col_id=column-1&p_p_col_pos=2&p_p_col_count=3"
-        "&_freeresources_WAR_lawnet3baseportlet_total=82 "
+        "&_freeresources_WAR_lawnet3baseportlet_total=82"
     ]
     iterator = 'iternodes'
     itertag = 'item'
 
-    def parse_node(self, response, selector):
-        item = {}
-        # item['url'] = selector.select('url').get()
-        # item['name'] = selector.select('name').get()
-        # item['description'] = selector.select('description').get()
+    def parse_node(self, response, selector: Selector):
+        raw_title = selector.xpath('title').get().split('-')
+        item: StateCourtDecisionItem = StateCourtDecisionItem(
+            title=raw_title[0].trim(),
+            neutral_citation=raw_title[1].trim(),
+            published_date=selector.xpath('pubDate').get()
+        )
         return item
