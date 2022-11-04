@@ -80,6 +80,7 @@ class PDPCDecisionAddToSQLPipeline:
             )
             session.add(decision)
             session.commit()
+        return item
 
 
 class PDPCDecisionDropDuplicatesPipeline:
@@ -101,3 +102,5 @@ class PDPCDecisionDropDuplicatesPipeline:
         if item.summary_url in self.lookup_table:
             from scrapy.exceptions import DropItem
             raise DropItem(f"Decision {item.title} is already in database. Skip.")
+        else:
+            return item

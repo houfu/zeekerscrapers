@@ -62,7 +62,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'pdpcSpider.pipelines.CommissionDecisionDropDuplicatesPipeline': 200,
+    'pdpcSpider.pipelines.PDPCDecisionDropDuplicatesPipeline': 200,
     'pdpcSpider.pipelines.CommissionDecisionSummaryPagePipeline': 300,
     'pdpcSpider.pipelines.PDPCDecisionDownloadFilePipeline': 800,
     'pdpcSpider.pipelines.PDPCDecisionAddToSQLPipeline': 1000
