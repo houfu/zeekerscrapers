@@ -18,12 +18,16 @@ class LatestJudgmentsStateCourtSpider(XMLFeedSpider):
     ]
     iterator = 'iternodes'
     itertag = 'item'
+    custom_settings = {
+        "FILES_STORE": 'downloads',
+    }
 
     def parse_node(self, response, selector: Selector):
         raw_title = selector.xpath('title').get().split('-')
         item: StateCourtDecisionItem = StateCourtDecisionItem(
-            title=raw_title[0].trim(),
-            neutral_citation=raw_title[1].trim(),
-            published_date=selector.xpath('pubDate').get()
+            title=raw_title[0].strip(),
+            neutral_citation=raw_title[1].strip(),
+            published_date=selector.xpath('pubDate').get(),
+            file_urls=[selector.xpath('link').get()]
         )
         return item
